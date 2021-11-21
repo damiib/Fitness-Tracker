@@ -1,21 +1,48 @@
-// TJ's class notes
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  name: {
-    type: String,
-    unique: true
+const workoutSchema = new Schema({
+  day: {
+    type: Date,
+    default: Date.now,
   },
-  notes: [
+
+  exercises: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Note"
-    }
-  ]
+      type: {
+        type: String,
+        trim: true,
+        required: "Exercise name is required",
+      },
+      name: {
+        type: String,
+        trim: true,
+        required: "Exercise name is required",
+      },
+      duration: {
+        type: Number,
+        
+      },
+      weight: {
+        type: Number,
+        
+      },
+      reps: {
+        type: Number,
+        
+      },
+      sets: {
+        type: Number,
+        
+      },
+      distance: {
+        type: Number,
+        
+      },
+    },
+  ],
 });
 
-const User = mongoose.model("User", UserSchema);
+const Workout = mongoose.model("Workout", workoutSchema);
 
-module.exports = User;
+module.exports = Workout;

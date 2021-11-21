@@ -20,8 +20,8 @@ router.get("/api/workouts/range", (req, res) => {
   
 });
 
-router.post("/api/workouts/", (req , res) => {
-    Workout.create(req)
+router.post("/api/workouts/", ({ body }, res) => {
+    Workout.create({body})
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
@@ -45,10 +45,12 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
 });
 
 // 
-router.get("/api/workouts", (req , res) => {
-  Workout([
+router.get("/api/workouts", (req, res) => {
+  Workout.aggregate([
     {
-    
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration" }
+      }
     }])
     .then(dbWorkout => {
       res.json(dbWorkout);
@@ -59,3 +61,5 @@ router.get("/api/workouts", (req , res) => {
 });
 
 module.exports = router;
+
+// I worked with a study group for this homework.
