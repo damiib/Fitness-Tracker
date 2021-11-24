@@ -2,7 +2,6 @@ const router = require("express").Router();
 const Workout = require("../models/workout");
 
 
-// this function the total duration of each workout from the past seven workouts on the stats page.  $addFields
 router.get("/api/workouts/range", (req, res) => {
   Workout.aggregate([
     {
@@ -44,7 +43,7 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
     });
 });
 
-// 
+
 router.get("/api/workouts", (req, res) => {
   Workout.aggregate([
     {
